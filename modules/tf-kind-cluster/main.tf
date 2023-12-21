@@ -8,3 +8,9 @@ resource "kind_cluster" "this" {
         - role: worker
     EOF
 }
+
+resource "null_resource" "kubeconfig" {
+  provisioner "local-exec" {
+    command = "echo '${kind_cluster.this.kubeconfig}' > ${path.module}/kind-config"
+  }
+}
