@@ -11,6 +11,14 @@ module "github_repository" {
   public_key_openssh_title = "flux"
 }
 
+module "flux_bootstrap" {
+  source            = "./modules/tf-flux-bootstrap"
+  kubeconfig_paths  = module.kind_cluster.kubeconfig
+  github_account    = var.github_account
+  github_repository = var.github_repo
+  private_key       = module.tls_private_key.private_key_pem
+}
+
 module "tls_private_key" {
   source    = "./modules/tf-hashicorp-tls-key"
   algorithm = "RSA"
