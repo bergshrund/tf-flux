@@ -1,3 +1,8 @@
+provider "github" {
+  owner = var.github_account
+  token = var.github_access_token
+}
+
 module "kind_cluster" {
   source = "./modules/tf-kind-cluster"
 }
@@ -11,6 +16,12 @@ module "flux_bootstrap" {
   github_access_token = var.github_access_token
   private_key         = module.tls_private_key.private_key_pem
   public_key          = module.tls_private_key.public_key_openssh
+}
+
+module "kbot" {
+  depends_on = [ module.flux_bootstrap.flux_id ]
+  source              = "./modules/tf-kbot"
+  repository_name   = var.github_repo
 }
 
 module "tls_private_key" {
