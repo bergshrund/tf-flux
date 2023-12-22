@@ -14,6 +14,11 @@ variable "github_account" {
   description = "The GitHub account that own source repository"
 }
 
+variable "github_access_token" {
+  type        = string
+  description = "GitHub access token"
+}
+
 variable "github_repository" {
   type        = string
   description = "The GitHub repository"
@@ -22,6 +27,11 @@ variable "github_repository" {
 variable "private_key" {
   type        = string
   description = "Private part of the deploy key"
+}
+
+variable "public_key" {
+  type        = string
+  description = "Public part of the deploy key"
 }
 
 variable "target_path" {

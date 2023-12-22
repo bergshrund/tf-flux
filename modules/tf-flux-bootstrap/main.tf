@@ -13,6 +13,16 @@ provider "flux" {
   }
 }
 
+module "flux_github_repository" {
+  source                   = "../tf-github-repository"
+  github_account           = var.github_account
+  github_access_token      = var.github_access_token
+  repository_name          = var.github_repository
+  public_key_openssh       = var.public_key
+  public_key_openssh_title = "flux"
+}
+
 resource "flux_bootstrap_git" "this" {
+  depends_on = [module.flux_github_repository.github_repository_deploy_key]
   path = var.target_path
 }
