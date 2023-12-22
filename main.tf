@@ -21,7 +21,9 @@ module "flux_bootstrap" {
 module "kbot" {
   depends_on = [ module.flux_bootstrap.flux_id ]
   source              = "./modules/tf-kbot"
-  repository_name   = var.github_repo
+  repository_name     = var.github_repo
+  target_path         = module.flux_bootstrap.flux_path
+  files = ["kbot/kbot-ns.yaml","kbot/kbot-repo.yaml","kbot/kbot-helmrelease.yaml"]
 }
 
 module "tls_private_key" {
