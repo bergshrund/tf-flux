@@ -13,9 +13,9 @@ variable "region" {
   type        = string
 }
 
-variable "zones" {
+variable "zone" {
   description = ""
-  type        = list(string)
+  type        = string
 }
 
 variable "cluster_name" {

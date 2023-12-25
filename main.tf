@@ -9,7 +9,7 @@ module "gke_cluster" {
    project_id = "data1co"
    impersonate_service_account = "devops@data1co.iam.gserviceaccount.com"
    region = "us-central1"
-   zones = ["us-central1-a"]
+   zone = "us-central1-a"
    cluster_name = "test-cluster"
    vpc_network_name = "test-vpc"
    vpc_subnetwork_name = "test-vpc-subnet"
@@ -20,6 +20,7 @@ module "gke_cluster" {
    node_poll_machine_type = "e2-micro"
    node_poll_size = "1"
 }
+
 
 
 #module "kind_cluster" {

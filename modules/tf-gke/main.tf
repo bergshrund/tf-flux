@@ -60,7 +60,7 @@ module "gke" {
   name = var.cluster_name
   
   region = var.region
-  zones = var.zones
+  zones = [ var.zone ]
 
   network = google_compute_network.this.name
   subnetwork = google_compute_subnetwork.this.name
@@ -82,7 +82,7 @@ module "gke" {
       service_account           = google_service_account.cluster_service_account.email
       machine_type              = var.node_poll_machine_type
       node_count                = var.node_poll_size
-      node_locations            = "us-central1-a"
+      node_locations            = var.zone
       local_ssd_count           = 0
       disk_size_gb              = 100
       disk_type                 = "pd-standard"
@@ -95,4 +95,16 @@ module "gke" {
     }
   ]
 
+}
+
+module "gke_auth" {
+  source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
+  project_id           = var.project_id
+  cluster_name         = module.gke.name
+  location             = module.gke.location
+}
+
+resource "local_file" "kubeconfig" {
+  content  = module.gke_auth.kubeconfig_raw
+  filename = "${path.module}/kubeconfig"
 }
