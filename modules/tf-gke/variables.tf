@@ -60,5 +60,23 @@ variable "node_poll_machine_type" {
 
 variable "node_poll_size" {
   description = ""
-  type        = string
+  type        = number
 }
+
+variable "cluster_service_account_iam_roles" {
+  type = list(string)
+  default = [
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter",
+    "roles/monitoring.viewer",
+    "roles/stackdriver.resourceMetadata.writer"
+  ]
+  description = "List of IAM roles to assign to the default Kubernetes cluster service account."
+}
+
+variable "cluster_service_account_custom_iam_roles" {
+  type        = list(string)
+  default     = []
+  description = "List of arbitrary additional IAM roles to attach to the service account on the Kubernetes clusters nodes."
+}
+

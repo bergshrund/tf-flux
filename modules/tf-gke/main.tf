@@ -39,6 +39,19 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
+resource "google_service_account" "cluster_service_account" {
+  account_id   = "default-${var.cluster_name}"
+  display_name = "Kubernetes cluster default service account"
+  project      = var.project_id
+}
+
+resource "google_project_iam_member" "cluster_service_account" {
+  count   = length(var.cluster_service_account_iam_roles)
+  project = var.project_id
+  role    = element(var.cluster_service_account_iam_roles, count.index)
+  member  = "serviceAccount:${google_service_account.cluster_service_account.email}"
+}
+
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google"
   version = "29.0.0"
@@ -52,21 +65,24 @@ module "gke" {
   network = google_compute_network.this.name
   subnetwork = google_compute_subnetwork.this.name
 
-  ip_range_pods              = "${vpc_subnetwork_name}-pods-subnet"
-  ip_range_services          = "${vpc_subnetwork_name}-svc-subnet"
+  deletion_protection = false
+
+  ip_range_pods              = "${var.vpc_subnetwork_name}-pods-subnet"
+  ip_range_services          = "${var.vpc_subnetwork_name}-svc-subnet"
   http_load_balancing        = true
   network_policy             = false
   horizontal_pod_autoscaling = false
 
   create_service_account     = false
   remove_default_node_pool   = true
+
   node_pools = [
     {
       name                      = var.node_pool_name
       service_account           = google_service_account.cluster_service_account.email
       machine_type              = var.node_poll_machine_type
       node_count                = var.node_poll_size
-      node_locations            = var.zones
+      node_locations            = "us-central1-a"
       local_ssd_count           = 0
       disk_size_gb              = 100
       disk_type                 = "pd-standard"
@@ -76,6 +92,7 @@ module "gke" {
       auto_upgrade              = true
       autoscaling               = false
       preemptible               = true
-    },
+    }
   ]
+
 }
