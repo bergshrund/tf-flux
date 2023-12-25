@@ -9,6 +9,11 @@ variable "kubeconfig_context" {
   description = "The context used in the kubeconfig file"
 }
 
+variable "kubeconfig_content" {
+  type        = string
+  description = "The full text of the kubeconfig that can be used to connect to this cluster"
+}
+
 variable "github_account" {
   type        = string
   description = "The GitHub account that own source repository"

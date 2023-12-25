@@ -1,3 +1,8 @@
+resource "local_file" "kubeconfig" {
+  content  = var.kubeconfig_content
+  filename = var.kubeconfig_paths
+}
+
 provider "flux" {
   kubernetes = {
     config_path = var.kubeconfig_paths

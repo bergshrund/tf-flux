@@ -103,8 +103,3 @@ module "gke_auth" {
   cluster_name         = module.gke.name
   location             = module.gke.location
 }
-
-resource "local_file" "kubeconfig" {
-  content  = module.gke_auth.kubeconfig_raw
-  filename = "${path.module}/kubeconfig"
-}

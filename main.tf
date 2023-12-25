@@ -26,6 +26,7 @@ module "gke_cluster" {
 
 module "flux_bootstrap" {
   source              = "./modules/tf-flux-bootstrap"
+  kubeconfig_content  = module.gke_cluster.kubeconfig
   kubeconfig_paths    = module.gke_cluster.kubeconfig_path
   kubeconfig_context  = module.gke_cluster.context
   github_account      = var.github_account
