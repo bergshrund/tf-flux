@@ -64,7 +64,7 @@ variable "node_poll_machine_type" {
 }
 
 variable "node_poll_size" {
-  type        = string
+  type        = number
   description = ""
 }
 
@@ -74,11 +74,6 @@ variable "impersonate_service_account" {
 }
 
 variable "vpc_subnetwork_range" {
-  type        = string
-  description = ""
-}
-
-variable "" {
   type        = string
   description = ""
 }
