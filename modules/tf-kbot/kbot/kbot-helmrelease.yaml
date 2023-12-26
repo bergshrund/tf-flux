@@ -12,3 +12,8 @@ spec:
         kind: GitRepository
         name: kbot
   interval: 1m0s
+  valuesFrom:
+    - kind: Secter
+      name: kbot_token
+      valuesKey: token
+      targetPath: secret.token
