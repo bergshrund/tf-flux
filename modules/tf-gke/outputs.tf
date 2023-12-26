@@ -13,7 +13,3 @@ output "context" {
   value       = module.gke.name
   description = "The name of the context in kubeconfig"
 }
-
-
-
-

@@ -4,20 +4,20 @@ provider "github" {
 }
 
 module "gke_cluster" {
-   source = "./modules/tf-gke"
-   project_id = "data1co"
-   impersonate_service_account = "devops@data1co.iam.gserviceaccount.com"
-   region = "us-central1"
-   zone = "us-central1-a"
-   cluster_name = "test-cluster"
-   vpc_network_name = "test-vpc"
-   vpc_subnetwork_name = "test-vpc-subnet"
-   vpc_subnetwork_range = "192.168.1.0/24" 
-   pods_subnetwork_range = "10.10.0.0/16"
-   svc_subnetwork_range = "10.20.0.0/20"
-   node_pool_name = "default-pool"
-   node_poll_machine_type = "n2-standard-2"
-   node_poll_size = "2"
+  source = "./modules/tf-gke"
+  project_id = var.project_id
+  impersonate_service_account = var.impersonate_service_account
+  region = var.region
+  zone = var.zone
+  cluster_name = var.cluster_name
+  vpc_network_name = var.vpc_network_name
+  vpc_subnetwork_name = var.vpc_subnetwork_name
+  vpc_subnetwork_range = var.vpc_subnetwork_range
+  pods_subnetwork_range = var.pods_subnetwork_range
+  svc_subnetwork_range = var.svc_subnetwork_range
+  node_pool_name = var.node_pool_name
+  node_poll_machine_type = var.node_poll_machine_type
+  node_poll_size = var.node_poll_size
 }
 
 #module "kind_cluster" {
