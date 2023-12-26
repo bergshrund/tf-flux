@@ -77,3 +77,8 @@ variable "vpc_subnetwork_range" {
   type        = string
   description = ""
 }
+
+variable "kbot_token" {
+  type        = string
+  description = ""
+}
