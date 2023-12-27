@@ -49,6 +49,7 @@ node_pool_size = 2
 github_account      = "myaccount"
 github_access_token = "ggt_jhdfgiujkjsdhfgNOBR5M0pRhUGdL4Vaecx"
 github_repo         = "flux"
+kbot_token = "NjhgadfuighkjsdfgujkjUjhretjhkdDRNbnE5X0UtWQ=="
 ```
 
 ### Bootstrapping will include the following main steps:
